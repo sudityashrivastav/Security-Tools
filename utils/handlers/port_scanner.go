@@ -9,14 +9,14 @@ import (
 
 var (
 	portWG        sync.WaitGroup
-	PortSemaphore = make(chan struct{}, 100)
+	PortSemaphore = make(chan struct{}, 1000)
 	OpenPorts     []int
 	PortsMutex    sync.Mutex
 )
 
 func ScanPortsMain(host string) ([]int, error) {
 
-	for port := 1; port <= 500; port++ {
+	for port := 1; port <= 65535; port++ {
 		portWG.Add(1)
 		go scanPorts(host, port)
 	}
